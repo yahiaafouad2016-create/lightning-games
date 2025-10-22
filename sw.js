@@ -1,9 +1,7 @@
-
-const cacheName = 'lightning-cache-v2';
+const cacheName = 'lightning-cache-v1';
 const filesToCache = [
   '/',
-  '/index.html',
-  '/snake.html'
+  '/index.html'
 ];
 
 self.addEventListener('install', event => {
