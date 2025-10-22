@@ -39,7 +39,7 @@
       x: Math.floor(Math.random() * 19 + 1) * box,
       y: Math.floor(Math.random() * 19 + 1) * box
     };
-    let score = 0;
+   let highScore = localStorage.getItem('snakeHighScore') || 0;
 
     document.addEventListener('keydown', event => {
       if(event.key === 'ArrowLeft' && direction !== 'RIGHT') direction = 'LEFT';
@@ -88,8 +88,11 @@ if (
 ) {
   clearInterval(game);
   setTimeout(() => {
-    alert('Game Over! Your score: ' + score);
-    location.reload();
+   if (score > highScore) {
+  localStorage.setItem('snakeHighScore', score);
+}
+alert('Game Over! Your score: ' + score + '\nHigh Score: ' + Math.max(score, highScore));
+location.reload();
   }, 100);
 }
 
@@ -99,6 +102,7 @@ if (
       ctx.fillStyle = 'white';
       ctx.font = '20px Arial';
       ctx.fillText('Score: ' + score, 10, 20);
+ctx.fillText('High: ' + highScore, 310, 20);
     }
 
     const game = setInterval(draw, 100);
