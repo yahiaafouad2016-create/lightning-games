@@ -80,15 +80,19 @@
 
       const newHead = {x: snakeX, y: snakeY};
 
-      // game over
-      if(
-        snakeX < 0 || snakeX >= 400 ||
-        snakeY < 0 || snakeY >= 400 ||
-        snake.some(segment => segment.x === newHead.x && segment.y === newHead.y)
-      ) {
-        clearInterval(game);
-        alert('Game Over! Your score: ' + score);
-        location.reload();
+   // game over check (ignore head when snake is tiny)
+if (
+  snakeX < 0 || snakeX >= 400 ||
+  snakeY < 0 || snakeY >= 400 ||
+  snake.slice(1).some(segment => segment.x === newHead.x && segment.y === newHead.y)
+) {
+  clearInterval(game);
+  setTimeout(() => {
+    alert('Game Over! Your score: ' + score);
+    location.reload();
+  }, 100);
+}
+
       }
 
       snake.unshift(newHead);
