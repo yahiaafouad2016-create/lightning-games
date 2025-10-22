@@ -1,7 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
   <title>Lightning Games ⚡</title>
+
+  <!-- 👇 Add these two lines -->
+  <link rel="manifest" href="manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #001f3f, #0074D9);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    /* your existing CSS continues... */
+  </style>
+</head>
   <style>
     body {
       font-family: Arial, sans-serif;
