@@ -1,4 +1,4 @@
-const cacheName = 'lightning-cache-v9';
+const cacheName = 'lightning-cache-v10';
 const filesToCache = [
   './',
   './index.html',
