@@ -5,12 +5,16 @@
 
   <!-- 👇 Add these two lines -->
   <link rel="manifest" href="manifest.json">
- <script>
+<script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/lightning-games/sw.js');
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js', { scope: './' })
+      .then(reg => console.log('✅ Service worker registered:', reg.scope))
+      .catch(err => console.error('❌ Service worker failed:', err));
+    });
   }
 </script>
-
+    
   <style>
     body {
       font-family: Arial, sans-serif;
