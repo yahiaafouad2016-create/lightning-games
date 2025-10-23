@@ -7,14 +7,12 @@
   <link rel="manifest" href="manifest.json">
 <script>
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js', { scope: './' })
-      .then(reg => console.log('✅ Service worker registered:', reg.scope))
-      .catch(err => console.error('❌ Service worker failed:', err));
-    });
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('✅ Registered:', reg.scope))
+      .catch(err => console.error('❌ Failed:', err));
   }
 </script>
-    
+  
   <style>
     body {
       font-family: Arial, sans-serif;
