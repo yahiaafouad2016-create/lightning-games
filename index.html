@@ -148,7 +148,6 @@
 <!-- 90 Game Cards End -->
 <h1>⚡ Lightning Games ⚡</h1>
 
-<!-- ✅ Only one search bar -->
 <input
   type="text"
   id="searchBar"
@@ -158,20 +157,11 @@
 
 <p>Welcome! Choose a game below:</p>
 
-<!-- Your 90 game cards -->
+<!-- 90 game cards (keep only one set) -->
 <div class="game-card">
   <a href="games/game1/index.html"><img src="games/game1/thumbnail1.png" alt="Game 1"><p>Game 1</p></a>
 </div>
-<div class="game-card">
-  <a href="games/game2/index.html"><img src="games/game2/thumbnail2.png" alt="Game 2"><p>Game 2</p></a>
-</div>
-<div class="game-card">
-  <a href="games/game3/index.html"><img src="games/game3/thumbnail3.png" alt="Game 3"><p>Game 3</p></a>
-</div>
-<!-- …repeat the same pattern up to game90… -->
-<div class="game-card">
-  <a href="games/game90/index.html"><img src="games/game90/thumbnail90.png" alt="Game 90"><p>Game 90</p></a>
-</div>
+<!-- …repeat up to game90… -->
 
 <!-- Offline games -->
 <div class="game">
@@ -184,4 +174,20 @@
 </div>
 <div class="game">
   <h2>Pac-Man</h2>
-  <a href="https://pacman.live/" target="_blank">Play Game
+  <a href="https://pacman.live/" target="_blank">Play Now</a>
+</div>
+<div class="game">
+  <h2>Flappy Bird</h2>
+  <a href="https://flappybird.io/" target="_blank">Play Now</a>
+</div>
+
+<script>
+function searchGames() {
+  const input = document.getElementById("searchBar").value.toLowerCase();
+  const games = document.querySelectorAll(".game-card, .game");
+
+  games.forEach(game => {
+    const text = game.innerText.toLowerCase();
+    game.style.display = text.includes(input) ? "block" : "none";
+  });
+</script>
