@@ -1,4 +1,4 @@
-const cacheName = 'lightning-cache-v10';
+const CACHE_NAME = "lightning-games-v11";
 const filesToCache = [
   './',
   './index.html',
