@@ -147,21 +147,33 @@
 </div>
 <!-- 90 Game Cards End -->
 <h1>⚡ Lightning Games ⚡</h1>
-  <input
+
+<!-- ✅ Only one search bar -->
+<input
   type="text"
   id="searchBar"
   placeholder="Search games..."
   onkeyup="searchGames()"
 />
 
-  <p>Welcome! Choose a game below:</p>
-  <input
-  type="text"
-  id="searchBar"
-  placeholder="Search games..."
-  onkeyup="searchGames()"
-/>
+<p>Welcome! Choose a game below:</p>
 
+<!-- Your 90 game cards -->
+<div class="game-card">
+  <a href="games/game1/index.html"><img src="games/game1/thumbnail1.png" alt="Game 1"><p>Game 1</p></a>
+</div>
+<div class="game-card">
+  <a href="games/game2/index.html"><img src="games/game2/thumbnail2.png" alt="Game 2"><p>Game 2</p></a>
+</div>
+<div class="game-card">
+  <a href="games/game3/index.html"><img src="games/game3/thumbnail3.png" alt="Game 3"><p>Game 3</p></a>
+</div>
+<!-- …repeat the same pattern up to game90… -->
+<div class="game-card">
+  <a href="games/game90/index.html"><img src="games/game90/thumbnail90.png" alt="Game 90"><p>Game 90</p></a>
+</div>
+
+<!-- Offline games -->
 <div class="game">
   <h2>Snake</h2>
   <a href="snake.html">Play Offline</a>
@@ -170,25 +182,6 @@
   <h2>Tetris</h2>
   <a href="tetris.html">Play Offline</a>
 </div>
-
-  <div class="game">
-    <h2>Pac-Man</h2>
-    <a href="https://pacman.live/" target="_blank">Play Now</a>
-  </div>
-  <div class="game">
-    <h2>Flappy Bird</h2>
-    <a href="https://flappybird.io/" target="_blank">Play Now</a>
-  </div>
-<script>
-function searchGames() {
-  const input = document.getElementById("searchBar").value.toLowerCase();
-  const games = document.getElementsByClassName("game");
-
-  for (let i = 0; i < games.length; i++) {
-    const text = games[i].innerText.toLowerCase();
-    games[i].style.display = text.includes(input) ? "block" : "none";
-  }
-}
-</script>
-</body>
-</html>
+<div class="game">
+  <h2>Pac-Man</h2>
+  <a href="https://pacman.live/" target="_blank">Play N_
