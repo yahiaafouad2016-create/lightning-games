@@ -57,7 +57,7 @@
 .game a:hover {
   background: #63b3ff;
 }
-    <style>
+
     /* your existing CSS continues... */
     
     .game {
@@ -69,6 +69,17 @@
   box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+#searchBar {
+  padding: 12px;
+  width: 260px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  margin: 20px auto;
+  font-size: 16px;
+  display: block;
+}
+
 </style>
 .game {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -136,7 +147,21 @@
 </div>
 <!-- 90 Game Cards End -->
 <h1>⚡ Lightning Games ⚡</h1>
+  <input
+  type="text"
+  id="searchBar"
+  placeholder="Search games..."
+  onkeyup="searchGames()"
+/>
+
   <p>Welcome! Choose a game below:</p>
+  <input
+  type="text"
+  id="searchBar"
+  placeholder="Search games..."
+  onkeyup="searchGames()"
+/>
+
 <div class="game">
   <h2>Snake</h2>
   <a href="snake.html">Play Offline</a>
@@ -154,6 +179,16 @@
     <h2>Flappy Bird</h2>
     <a href="https://flappybird.io/" target="_blank">Play Now</a>
   </div>
+<script>
+function searchGames() {
+  const input = document.getElementById("searchBar").value.toLowerCase();
+  const games = document.getElementsByClassName("game");
 
+  for (let i = 0; i < games.length; i++) {
+    const text = games[i].innerText.toLowerCase();
+    games[i].style.display = text.includes(input) ? "block" : "none";
+  }
+}
+</script>
 </body>
 </html>
