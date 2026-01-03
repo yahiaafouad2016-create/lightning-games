@@ -87,7 +87,6 @@ if ('serviceWorker' in navigator) {
   type="text"
   id="searchBar"
   placeholder="Search games..."
-  onkeyup="searchGames()"
 />
 
 <p>Welcome! Choose a game below:</p>
@@ -256,6 +255,20 @@ function startMaze() {
 }
 
 draw();
+
+const searchBar = document.getElementById("searchBar");
+const games = document.querySelectorAll(".game");
+
+searchBar.addEventListener("input", () => {
+  const value = searchBar.value.toLowerCase();
+
+  games.forEach(game => {
+    const text = game.innerText.toLowerCase();
+    game.style.display = text.includes(value) ? "block" : "none";
+  });
+});
+</script>
+
 </script>
 
 </body>
