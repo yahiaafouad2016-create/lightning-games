@@ -59,6 +59,23 @@
     .game a:hover {
       background: #63b3ff;
     }
+    <script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/lightning-games/sw.js')
+      .then(reg => console.log('SW registered'))
+      .catch(err => console.error(err));
+  });
+}
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    window.location.reload();
+  });
+}
+</script>
   </style>
 </head>
 
