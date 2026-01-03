@@ -134,27 +134,17 @@ if ('serviceWorker' in navigator) {
 
 <div class="game">
   <h2>Maze Game</h2>
-  <canvas id="maze" width="300" height="300"></canvas>
+  <p>Use arrow keys ⬅️⬆️⬇️➡️</p>
+  <canvas id="maze" width="300" height="300" style="background:#000;border-radius:10px;"></canvas>
 </div>
 
 <script>
-function searchGames() {
-  const input = document.getElementById("searchBar").value.toLowerCase();
-  const games = document.querySelectorAll(".game");
-
-  games.forEach(game => {
-    const text = game.innerText.toLowerCase();
-    game.style.display = text.includes(input) ? "block" : "none";
-  });
-}
-  <script>
-const canvas = document.getElementById('maze');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById("maze");
+const ctx = canvas.getContext("2d");
 const tile = 30;
 
-// Levels
 const levels = [
-  [ // Level 1
+  [
     [1,1,1,1,1,1,1,1,1,1],
     [1,0,0,0,1,0,0,0,0,1],
     [1,0,1,0,1,0,1,1,0,1],
@@ -163,10 +153,10 @@ const levels = [
     [1,0,0,0,0,1,0,1,0,1],
     [1,1,1,1,0,1,0,1,0,1],
     [1,0,0,1,0,0,0,1,0,1],
-    [1,0,0,0,0,1,0,0,2,1], // Finish
+    [1,0,0,0,0,1,0,0,2,1],
     [1,1,1,1,1,1,1,1,1,1]
   ],
-  [ // Level 2
+  [
     [1,1,1,1,1,1,1,1,1,1],
     [1,0,1,0,0,0,1,0,0,1],
     [1,0,1,0,1,0,1,1,0,1],
@@ -175,48 +165,53 @@ const levels = [
     [1,0,0,0,0,1,0,0,0,1],
     [1,1,1,1,0,1,0,1,0,1],
     [1,0,0,1,0,0,0,1,0,1],
-    [1,0,0,0,0,1,0,0,2,1], // Finish
+    [1,0,0,0,0,1,0,0,2,1],
     [1,1,1,1,1,1,1,1,1,1]
   ]
 ];
 
-let currentLevel = 0;
-let maze = levels[currentLevel];
-let player = {x:1, y:1};
+let level = 0;
+let maze = levels[level];
+let player = { x: 1, y: 1 };
 
-// Draw maze
 function draw() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  for(let y=0;y<maze.length;y++){
-    for(let x=0;x<maze[y].length;x++){
-      if(maze[y][x]===1){ ctx.fillStyle="gray"; ctx.fillRect(x*tile,y*tile,tile,tile); }
-      if(maze[y][x]===2){ ctx.fillStyle="green"; ctx.fillRect(x*tile,y*tile,tile,tile); }
+  ctx.clearRect(0,0,300,300);
+
+  for (let y=0;y<10;y++) {
+    for (let x=0;x<10;x++) {
+      if (maze[y][x] === 1) {
+        ctx.fillStyle = "#555";
+        ctx.fillRect(x*tile,y*tile,tile,tile);
+      }
+      if (maze[y][x] === 2) {
+        ctx.fillStyle = "lime";
+        ctx.fillRect(x*tile,y*tile,tile,tile);
+      }
     }
   }
-  ctx.fillStyle="red";
+
+  ctx.fillStyle = "red";
   ctx.fillRect(player.x*tile,player.y*tile,tile,tile);
 }
 
-// Player movement
-document.addEventListener('keydown', e=>{
-  const {x,y}=player;
-  if(e.key==='ArrowUp' && maze[y-1][x]===0) player.y--;
-  if(e.key==='ArrowDown' && maze[y+1][x]===0) player.y++;
-  if(e.key==='ArrowLeft' && maze[y][x-1]===0) player.x--;
-  if(e.key==='ArrowRight' && maze[y][x+1]===0) player.x++;
+document.addEventListener("keydown", e => {
+  let {x,y} = player;
 
-  // Check finish
-  if(maze[player.y][player.x]===2){
-    currentLevel++;
-    if(currentLevel >= levels.length){
-      alert("🎉 You finished all levels!");
-      currentLevel = 0;
+  if (e.key === "ArrowUp" && maze[y-1][x] !== 1) player.y--;
+  if (e.key === "ArrowDown" && maze[y+1][x] !== 1) player.y++;
+  if (e.key === "ArrowLeft" && maze[y][x-1] !== 1) player.x--;
+  if (e.key === "ArrowRight" && maze[y][x+1] !== 1) player.x++;
+
+  if (maze[player.y][player.x] === 2) {
+    level++;
+    if (level >= levels.length) {
+      alert("🎉 You finished ALL levels!");
+      level = 0;
     } else {
-      alert("✅ Level Complete! Next Level!");
+      alert("✅ Level Complete!");
     }
-    maze = levels[currentLevel];
-    player.x = 1;
-    player.y = 1;
+    maze = levels[level];
+    player = { x: 1, y: 1 };
   }
 
   draw();
