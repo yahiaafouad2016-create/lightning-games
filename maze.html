@@ -1,1 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Maze Game</title>
+  <style>
+    body { text-align:center; font-family:Arial; background:#001f3f; color:white; }
+    canvas { background:#000; display:block; margin:20px auto; }
+  </style>
+</head>
+<body>
+<h1>Maze Game</h1>
+<canvas id="maze" width="300" height="300"></canvas>
+<script>
+const canvas = document.getElementById('maze');
+const ctx = canvas.getContext('2d');
+
+const maze = [
+  [1,1,1,1,1,1,1,1,1,1],
+  [1,0,0,0,1,0,0,0,0,1],
+  [1,0,1,0,1,0,1,1,0,1],
+  [1,0,1,0,0,0,0,1,0,1],
+  [1,0,1,1,1,1,0,1,0,1],
+  [1,0,0,0,0,1,0,1,0,1],
+  [1,1,1,1,0,1,0,1,0,1],
+  [1,0,0,1,0,0,0,1,0,1],
+  [1,0,0,0,0,1,0,0,0,1],
+  [1,1,1,1,1,1,1,1,1,1]
+];
+
+const tile = 30;
+let player = {x:1, y:1};
+
+function draw() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(let y=0;y<maze.length;y++){
+    for(let x=0;x<maze[y].length;x++){
+      if(maze[y][x]===1){ ctx.fillStyle="gray"; ctx.fillRect(x*tile,y*tile,tile,tile); }
+    }
+  }
+  ctx.fillStyle="red";
+  ctx.fillRect(player.x*tile,player.y*tile,tile,tile);
+}
+
+document.addEventListener('keydown', e=>{
+  const {x,y}=player;
+  if(e.key==='ArrowUp' && maze[y-1][x]===0) player.y--;
+  if(e.key==='ArrowDown' && maze[y+1][x]===0) player.y++;
+  if(e.key==='ArrowLeft' && maze[y][x-1]===0) player.x--;
+  if(e.key==='ArrowRight' && maze[y][x+1]===0) player.x++;
+  draw();
+});
+
+draw();
+</script>
+</body>
+</html>
 
