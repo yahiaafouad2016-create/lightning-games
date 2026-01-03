@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <title>Lightning Games ⚡</title>
 
-  <link rel="manifest" href="manifest.json">
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -24,7 +22,6 @@
       width: 260px;
       border-radius: 10px;
       border: none;
-      outline: none;
       margin: 20px auto;
       font-size: 16px;
       display: block;
@@ -35,14 +32,8 @@
       border-radius: 15px;
       margin: 20px auto;
       padding: 20px;
-      width: 250px;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .game:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(0,170,255,0.6);
+      width: 260px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
 
     .game a {
@@ -59,23 +50,6 @@
     .game a:hover {
       background: #63b3ff;
     }
-    <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/lightning-games/sw.js')
-      .then(reg => console.log('SW registered'))
-      .catch(err => console.error(err));
-  });
-}
-</script>
-
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    window.location.reload();
-  });
-}
-</script>
   </style>
 </head>
 
@@ -83,193 +57,32 @@ if ('serviceWorker' in navigator) {
 
 <h1>⚡ Lightning Games ⚡</h1>
 
-<input
-  type="text"
-  id="searchBar"
-  placeholder="Search games..."
-/>
+<input id="searchBar" type="text" placeholder="Search games...">
 
 <p>Welcome! Choose a game below:</p>
 
-<div class="game">
-  <h2>Snake</h2>
-  <a href="snake.html">Play Offline</a>
-</div>
-
-<div class="game">
-  <h2>Tetris</h2>
-  <a href="tetris.html">Play Offline</a>
-</div>
-
-<div class="game">
-  <h2>Pac-Man</h2>
-  <a href="https://pacman.live/" target="_blank">Play Now</a>
-</div>
-
-<div class="game">
-  <h2>Flappy Bird</h2>
-  <a href="https://flappybird.io/" target="_blank">Play Now</a>
-</div>
-
-  <div class="game">
-  <h2>2048</h2>
-  <a href="https://play2048.co/" target="_blank">Play Now</a>
-</div>
-
- <div class="game">
-  <h2>Breakout</h2>
-  <a href="https://www.google.com/search?q=breakout+game" target="_blank">Play Now</a>
-</div>
-
-  <div class="game">
-  <h2>Slither.io</h2>
-  <a href="https://slither.io/" target="_blank">Play Now</a>
-</div>
-
-<div class="game">
-  <h2>Krunker</h2>
-  <a href="https://krunker.io/" target="_blank">Play Now</a>
-</div>
-
-<div class="game">
-  <h2>Maze Game</h2>
-  <a href="https://www.coolmathgames.com/0-maze" target="_blank">
-    Play Now
-  </a>
-</div>
+<div class="game"><h2>Snake</h2><a href="snake.html">Play Now</a></div>
+<div class="game"><h2>Tetris</h2><a href="tetris.html">Play Now</a></div>
+<div class="game"><h2>Pac-Man</h2><a href="https://pacman.live/" target="_blank">Play Now</a></div>
+<div class="game"><h2>Flappy Bird</h2><a href="https://flappybird.io/" target="_blank">Play Now</a></div>
+<div class="game"><h2>2048</h2><a href="https://play2048.co/" target="_blank">Play Now</a></div>
+<div class="game"><h2>Maze Game</h2><a href="https://www.coolmathgames.com/0-maze" target="_blank">Play Now</a></div>
+<div class="game"><h2>Krunker</h2><a href="https://krunker.io/" target="_blank">Play Now</a></div>
 
 <script>
-const canvas = document.getElementById("maze");
-const ctx = canvas.getContext("2d");
-const tile = 30;
-
-const levels = [
-  // LEVEL 1
-  [
-    [1,1,1,1,1,1,1,1,1,1],
-    [1,0,0,0,1,0,0,0,0,1],
-    [1,0,1,0,1,0,1,1,0,1],
-    [1,0,1,0,0,0,0,1,0,1],
-    [1,0,1,1,1,1,0,1,0,1],
-    [1,0,0,0,0,1,0,1,0,1],
-    [1,1,1,1,0,1,0,1,0,1],
-    [1,0,0,1,0,0,0,1,0,1],
-    [1,0,0,0,0,1,0,0,2,1],
-    [1,1,1,1,1,1,1,1,1,1]
-  ],
-
-  // LEVEL 2
-  [
-    [1,1,1,1,1,1,1,1,1,1],
-    [1,0,1,0,0,0,1,0,0,1],
-    [1,0,1,0,1,0,1,1,0,1],
-    [1,0,0,0,1,0,0,1,0,1],
-    [1,0,1,1,1,1,0,1,0,1],
-    [1,0,0,0,0,1,0,0,0,1],
-    [1,1,1,1,0,1,0,1,0,1],
-    [1,0,0,1,0,0,0,1,0,1],
-    [1,0,0,0,0,1,0,0,2,1],
-    [1,1,1,1,1,1,1,1,1,1]
-  ],
-
-  // LEVEL 3
-  [
-    [1,1,1,1,1,1,1,1,1,1],
-    [1,0,0,0,0,0,0,1,0,1],
-    [1,1,1,1,1,1,0,1,0,1],
-    [1,0,0,0,0,1,0,0,0,1],
-    [1,0,1,1,0,1,1,1,0,1],
-    [1,0,1,0,0,0,0,1,0,1],
-    [1,0,1,0,1,1,0,1,0,1],
-    [1,0,0,0,0,0,0,0,0,1],
-    [1,1,1,1,1,1,1,1,2,1],
-    [1,1,1,1,1,1,1,1,1,1]
-  ],
-
-  // LEVEL 4 (HARD)
-  [
-    [1,1,1,1,1,1,1,1,1,1],
-    [1,0,0,1,0,0,0,0,0,1],
-    [1,0,1,1,0,1,1,1,0,1],
-    [1,0,0,0,0,1,0,0,0,1],
-    [1,1,1,1,0,1,0,1,1,1],
-    [1,0,0,0,0,0,0,0,0,1],
-    [1,0,1,1,1,1,1,1,0,1],
-    [1,0,0,0,0,0,0,1,0,1],
-    [1,1,1,1,1,1,0,0,2,1],
-    [1,1,1,1,1,1,1,1,1,1]
-  ]
-];
-
-let level = 0;
-let maze = levels[level];
-let player = { x: 1, y: 1 };
-
-function draw() {
-  ctx.clearRect(0,0,300,300);
-
-  for (let y=0;y<10;y++) {
-    for (let x=0;x<10;x++) {
-      if (maze[y][x] === 1) {
-        ctx.fillStyle = "#555";
-        ctx.fillRect(x*tile,y*tile,tile,tile);
-      }
-      if (maze[y][x] === 2) {
-        ctx.fillStyle = "lime";
-        ctx.fillRect(x*tile,y*tile,tile,tile);
-      }
-    }
-  }
-
-  ctx.fillStyle = "red";
-  ctx.fillRect(player.x*tile,player.y*tile,tile,tile);
-}
-
-document.addEventListener("keydown", e => {
-  let {x,y} = player;
-
-  if (e.key === "ArrowUp" && maze[y-1][x] !== 1) player.y--;
-  if (e.key === "ArrowDown" && maze[y+1][x] !== 1) player.y++;
-  if (e.key === "ArrowLeft" && maze[y][x-1] !== 1) player.x--;
-  if (e.key === "ArrowRight" && maze[y][x+1] !== 1) player.x++;
-
-  if (maze[player.y][player.x] === 2) {
-    level++;
-    if (level >= levels.length) {
-      alert("🎉 You finished ALL levels!");
-      level = 0;
-    } else {
-      alert("✅ Level Complete!");
-    }
-    maze = levels[level];
-    player = { x: 1, y: 1 };
-  }
-
-  draw();
-});
-
-function startMaze() {
-  document.getElementById("maze").style.display = "block";
-  document.getElementById("mazeHint").style.display = "block";
-  draw();
-}
-
-draw();
-
 const searchBar = document.getElementById("searchBar");
 const games = document.querySelectorAll(".game");
 
 searchBar.addEventListener("input", () => {
   const value = searchBar.value.toLowerCase();
-
   games.forEach(game => {
-    const text = game.innerText.toLowerCase();
-    game.style.display = text.includes(value) ? "block" : "none";
+    game.style.display = game.innerText.toLowerCase().includes(value)
+      ? "block"
+      : "none";
   });
 });
 </script>
 
-</script>
-
 </body>
 </html>
+
