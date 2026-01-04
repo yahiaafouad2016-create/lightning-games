@@ -2,51 +2,115 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Lightning Games </title>
+ <div class="topbar">
+  <div class="logo">⚡ Lightning Games</div>
+  <input id="searchBar" type="text" placeholder="Search games...">
+</div>
+
+  <div class="layout">
+  <aside class="sidebar">
+    <button class="nav active">🏠 Home</button>
+    <button class="nav">🔥 Popular</button>
+    <button class="nav">👥 2 Player</button>
+    <button class="nav">🧠 Puzzle</button>
+    <button class="nav">🚗 Racing</button>
+  </aside>
+  <main class="content">
+    <div class="games-grid">
 <link rel="icon" type="image/png" href="favicon.png">
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-background: linear-gradient(135deg, #020024, #090979, #00d4ff);
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #020024, #090979, #00d4ff);
+  color: white;
+}
 
-    h1 {
-      font-size: 3em;
-    }
+/* Top bar */
+.topbar {
+  height: 60px;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 20px;
+}
 
-    #searchBar {
-      padding: 12px;
-      width: 260px;
-      border-radius: 10px;
-      border: none;
-      margin: 20px auto;
-      font-size: 16px;
-      display: block;
-    }
+.logo {
+  font-size: 1.4em;
+  font-weight: bold;
+}
 
-    .game {
-      background: #111;
-      border-radius: 15px;
-      margin: 20px auto;
-      padding: 20px;
-      width: 260px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-    }
+#searchBar {
+  flex: 1;
+  max-width: 400px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+}
+
+/* Layout */
+.layout {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  background: rgba(0,0,0,0.35);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav {
+  background: transparent;
+  color: white;
+  border: none;
+  text-align: left;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.nav:hover,
+.nav.active {
+  background: #1e90ff;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Grid */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.game {
+  background: #111;
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+}
 
 .game a {
   display: block;
-  margin: 10px;
+  margin-top: 10px;
   padding: 8px;
   background: #1e90ff;
   color: white;
   text-decoration: none;
   border-radius: 8px;
   font-weight: bold;
-  text-align: center;
 }
 
   </style>
@@ -112,7 +176,6 @@ background: linear-gradient(135deg, #020024, #090979, #00d4ff);
 <div class="game"><h2>Wrestle Bros</h2><a href="https://www.crazygames.com/game/wrestle-bros" target="_blank">Play Now</a></div>
 
 <div class="game"><h2>Soccer Legends</h2><a href="https://www.crazygames.com/game/soccer-legends-2021" target="_blank">Play Now</a></div>
-<div class="game">
 <div class="game"><h2>Tennis 2P</h2><a href="https://www.crazygames.com/game/tennis-masters" target="_blank">Play Now</a></div>
 <div class="game"><h2>Slither.io</h2><a href="https://slither.io/" target="_blank">Play Now</a></div>
 <script>
