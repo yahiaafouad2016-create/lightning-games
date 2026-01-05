@@ -2,76 +2,138 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Game | Lightning Games</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="game-title">Game</title>
+  <link rel="stylesheet" href="style.css">
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
+      margin: 0;
       background: linear-gradient(135deg, #020024, #090979, #00d4ff);
       color: white;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    h1 { text-align: center; margin-bottom: 10px; }
+    p { text-align: center; margin: 5px 0; }
+
+    #fullscreen-btn {
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #0a84ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
     }
 
-    .container {
-      max-width: 700px;
-      margin: 80px auto;
-      background: rgba(0,0,0,0.4);
-      padding: 30px;
-      border-radius: 20px;
-    }
-
-    h1 {
-      margin-bottom: 10px;
-    }
-
-    p {
-      opacity: 0.9;
-    }
-
-    a.play {
-      display: inline-block;
+    #game-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      padding-top: 56.25%; /* 16:9 ratio */
       margin-top: 20px;
-      padding: 14px 28px;
-      background: #1e90ff;
+    }
+
+    #game-iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: none;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    #external-link {
+      display: none;
+      font-size: 18px;
+      padding: 10px 20px;
+      margin-top: 20px;
+      background: #1f6feb;
       color: white;
       text-decoration: none;
-      font-size: 1.2em;
-      border-radius: 12px;
-      font-weight: bold;
+      border-radius: 8px;
     }
 
-    a.play:hover {
-      background: #63b3ff;
-    }
-
-    .back {
-      display: block;
-      margin-top: 20px;
-      color: #ccc;
-      text-decoration: none;
+    @media (max-width: 768px) {
+      #game-container { padding-top: 75%; }
+      #fullscreen-btn, #external-link { width: 90%; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1 id="gameTitle">Game</h1>
-    <p id="gameDesc">Have fun playing!</p>
+<h1 id="game-name">Game Name</h1>
+<p id="game-description">Description here</p>
+<p id="game-controls">Controls here</p>
+<button id="fullscreen-btn">Fullscreen / Play</button>
 
-    <a id="playBtn" class="play" href="#" target="_blank">▶ Play Now</a>
-
-    <a href="index.html" class="back">⬅ Back to Lightning Games</a>
-  </div>
+<div id="game-container">
+  <iframe id="game-iframe"></iframe>
+  <a id="external-link" target="_blank">Play on external site</a>
+</div>
 
 <script>
+  // Get URL params
   const params = new URLSearchParams(window.location.search);
+  const gameName = params.get("title");
+  const gameType = params.get("type");
+  const gameSrc = params.get("src");
 
-  const title = params.get("title");
-  const link = params.get("link");
+  document.getElementById("game-title").innerText = gameName;
+  document.getElementById("game-name").innerText = gameName;
 
-  if (title) document.getElementById("gameTitle").innerText = title;
-  if (link) document.getElementById("playBtn").href = link;
+  // Example descriptions (you can expand)
+  const descriptions = {
+    "Snake": { desc: "Classic Snake game. Eat food and grow!", controls: "Arrow keys to move" },
+    "Tetris": { desc: "Stack the blocks without gaps.", controls: "Arrow keys to move, Up to rotate" },
+  };
+
+  if(descriptions[gameName]) {
+    document.getElementById("game-description").innerText = descriptions[gameName].desc;
+    document.getElementById("game-controls").innerText = "Controls: " + descriptions[gameName].controls;
+  } else {
+    document.getElementById("game-description").innerText = "Enjoy the game!";
+    document.getElementById("game-controls").innerText = "";
+  }
+
+  const iframe = document.getElementById("game-iframe");
+  const externalLink = document.getElementById("external-link");
+
+  if(gameType === "iframe") {
+    iframe.src = gameSrc;
+    iframe.style.display = "block";
+    externalLink.style.display = "none";
+  } else {
+    externalLink.href = gameSrc;
+    externalLink.style.display = "inline-block";
+    iframe.style.display = "none";
+  }
+
+  // Fullscreen button
+  document.getElementById("fullscreen-btn").addEventListener("click", () => {
+    if(iframe.style.display === "block") {
+      if(iframe.requestFullscreen) iframe.requestFullscreen();
+      else if(iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+      else if(iframe.msRequestFullscreen) iframe.msRequestFullscreen();
+    } else {
+      window.open(externalLink.href, "_blank");
+    }
+  });
+
+  // Resize iframe dynamically
+  function resizeIframe() {
+    iframe.style.height = document.getElementById("game-container").offsetWidth * 0.5625 + "px";
+  }
+  window.addEventListener("resize", resizeIframe);
+  resizeIframe();
 </script>
 
 </body>
 </html>
+
