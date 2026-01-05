@@ -438,7 +438,6 @@ body {
 
 const searchBar = document.getElementById("searchBar");
 const games = document.querySelectorAll(".game[data-category]");
-
 const buttons = document.querySelectorAll(".nav");
 
 function showGames(filter) {
@@ -451,6 +450,7 @@ function showGames(filter) {
   });
 }
 
+// Button filtering
 buttons.forEach(btn => {
   btn.addEventListener("click", () => {
     buttons.forEach(b => b.classList.remove("active"));
@@ -459,20 +459,19 @@ buttons.forEach(btn => {
   });
 });
 
-let searchTimeout;
-
+// Search bar filtering
+const searchBar = document.getElementById("searchBar");
 searchBar.addEventListener("input", () => {
-  clearTimeout(searchTimeout);
-
-  searchTimeout = setTimeout(() => {
-    const value = searchBar.value.toLowerCase();
-    games.forEach(game => {
-      game.style.display = game.innerText.toLowerCase().includes(value)
-        ? "block"
-        : "none";
-    });
-  }, 150);
+  const value = searchBar.value.toLowerCase();
+  games.forEach(game => {
+    game.style.display = game.innerText.toLowerCase().includes(value)
+      ? "block"
+      : "none";
+  });
 });
+
+// Initially show all games
+showGames("all");
 
 </script>
 
