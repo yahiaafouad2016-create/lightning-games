@@ -439,14 +439,18 @@ body {
 const searchBar = document.getElementById("searchBar");
 const games = document.querySelectorAll(".game[data-category]");
 const buttons = document.querySelectorAll(".nav");
+const searchBar = document.getElementById("searchBar");
 
+// Function to show games by category
 function showGames(filter) {
+  const searchValue = searchBar.value.toLowerCase();
+
   games.forEach(game => {
     const categories = game.dataset.category;
-    game.style.display =
-      filter === "all" || categories.includes(filter)
-        ? "block"
-        : "none";
+    const matchesFilter = filter === "all" || categories.includes(filter);
+    const matchesSearch = game.innerText.toLowerCase().includes(searchValue);
+
+    game.style.display = matchesFilter && matchesSearch ? "block" : "none";
   });
 }
 
@@ -460,14 +464,10 @@ buttons.forEach(btn => {
 });
 
 // Search bar filtering
-const searchBar = document.getElementById("searchBar");
 searchBar.addEventListener("input", () => {
-  const value = searchBar.value.toLowerCase();
-  games.forEach(game => {
-    game.style.display = game.innerText.toLowerCase().includes(value)
-      ? "block"
-      : "none";
-  });
+  const activeBtn = document.querySelector(".nav.active");
+  const activeFilter = activeBtn ? activeBtn.dataset.filter : "all";
+  showGames(activeFilter);
 });
 
 // Initially show all games
