@@ -87,6 +87,8 @@ body {
   border-radius: 15px;
   padding: 15px;
   text-align: center;
+  content-visibility: auto;
+  contain-intrinsic-size: 250px;
 }
 
 .game a {
@@ -486,7 +488,10 @@ renderFavs();
 renderRecent();
   
 const searchBar = document.getElementById("searchBar");
-const games = document.querySelectorAll(".game");
+const games = document.querySelectorAll(
+  ".games-grid > .game[data-category]"
+);
+
 const buttons = document.querySelectorAll(".nav");
 
 function showGames(filter) {
@@ -507,13 +512,19 @@ buttons.forEach(btn => {
   });
 });
 
+let searchTimeout;
+
 searchBar.addEventListener("input", () => {
-  const value = searchBar.value.toLowerCase();
-  games.forEach(game => {
-    game.style.display = game.innerText.toLowerCase().includes(value)
-      ? "block"
-      : "none";
-  });
+  clearTimeout(searchTimeout);
+
+  searchTimeout = setTimeout(() => {
+    const value = searchBar.value.toLowerCase();
+    games.forEach(game => {
+      game.style.display = game.innerText.toLowerCase().includes(value)
+        ? "block"
+        : "none";
+    });
+  }, 150);
 });
 
 </script>
