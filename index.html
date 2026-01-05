@@ -124,6 +124,14 @@ body {
       
 <h1> Lightning Games </h1>
 
+<h2>❤️ Favorites</h2>
+<div id="favorites" class="games-grid"></div>
+
+<h2>🕒 Recently Played</h2>
+<div id="recent" class="games-grid"></div>
+
+<hr>
+
 <div class="game" data-category="popular"><h2>Snake</h2><a href="game.html?title=Snake&link=snake.html">Play Now</a></div>
 
 <div class="game" data-category="popular"><h2>Tetris</h2><a href="game.html?title=Tetris&link=tetris.html">Play Now</a></div>
@@ -427,6 +435,56 @@ body {
   </main>
 </div>
 <script>
+function saveRecent(title, src) {
+  let recent = JSON.parse(localStorage.getItem("recentGames")) || [];
+  recent = recent.filter(g => g.title !== title);
+  recent.unshift({ title, src });
+  if (recent.length > 8) recent.pop();
+  localStorage.setItem("recentGames", JSON.stringify(recent));
+}
+
+function toggleFav(title, src) {
+  let favs = JSON.parse(localStorage.getItem("favorites")) || [];
+  const exists = favs.find(g => g.title === title);
+
+  if (exists) {
+    favs = favs.filter(g => g.title !== title);
+  } else {
+    favs.push({ title, src });
+  }
+
+  localStorage.setItem("favorites", JSON.stringify(favs));
+  renderFavs();
+}
+
+function renderFavs() {
+  const box = document.getElementById("favorites");
+  box.innerHTML = "";
+  (JSON.parse(localStorage.getItem("favorites")) || []).forEach(g => {
+    box.innerHTML += `
+      <div class="game">
+        <h2>${g.title}</h2>
+        <a href="game.html?title=${g.title}&src=${g.src}"
+           onclick="saveRecent('${g.title}','${g.src}')">Play Now</a>
+      </div>`;
+  });
+}
+
+function renderRecent() {
+  const box = document.getElementById("recent");
+  box.innerHTML = "";
+  (JSON.parse(localStorage.getItem("recentGames")) || []).forEach(g => {
+    box.innerHTML += `
+      <div class="game">
+        <h2>${g.title}</h2>
+        <a href="game.html?title=${g.title}&src=${g.src}">Play Now</a>
+      </div>`;
+  });
+}
+
+renderFavs();
+renderRecent();
+  
 const searchBar = document.getElementById("searchBar");
 const games = document.querySelectorAll(".game");
 const buttons = document.querySelectorAll(".nav");
@@ -457,6 +515,7 @@ searchBar.addEventListener("input", () => {
       : "none";
   });
 });
+
 </script>
 
 </body>
