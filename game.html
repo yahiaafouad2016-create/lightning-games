@@ -1,138 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="game-title">Game</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: linear-gradient(135deg, #020024, #090979, #00d4ff);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-    }
-    h1 { text-align: center; margin-bottom: 10px; }
-    p { text-align: center; margin: 5px 0; }
+<meta charset="UTF-8">
+<title id="pageTitle">Game</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    #fullscreen-btn {
-      margin: 20px auto;
-      padding: 10px 20px;
-      font-size: 16px;
-      background: #0a84ff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    #game-container {
-      position: relative;
-      width: 100%;
-      max-width: 900px;
-      padding-top: 56.25%; /* 16:9 ratio */
-      margin-top: 20px;
-    }
-
-    #game-iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: none;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
-
-    #external-link {
-      display: none;
-      font-size: 18px;
-      padding: 10px 20px;
-      margin-top: 20px;
-      background: #1f6feb;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-    }
-
-    @media (max-width: 768px) {
-      #game-container { padding-top: 75%; }
-      #fullscreen-btn, #external-link { width: 90%; }
-    }
-  </style>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0f1a;
+  color: #fff;
+}
+header {
+  padding: 15px;
+  background: #11162a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+button {
+  background: #1e90ff;
+  border: none;
+  padding: 10px 15px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 6px;
+}
+button:hover { opacity: 0.9; }
+.container {
+  padding: 15px;
+}
+iframe {
+  width: 100%;
+  height: 70vh;
+  border: none;
+  background: #000;
+}
+.meta {
+  margin-top: 15px;
+  background: #11162a;
+  padding: 15px;
+  border-radius: 10px;
+}
+</style>
 </head>
+
 <body>
 
-<h1 id="game-name">Game Name</h1>
-<p id="game-description">Description here</p>
-<p id="game-controls">Controls here</p>
-<button id="fullscreen-btn">Fullscreen / Play</button>
+<header>
+  <h1 id="gameTitle">Game</h1>
+  <div>
+    <button onclick="goFullscreen()">Fullscreen</button>
+    <button onclick="openExternal()">Open External</button>
+  </div>
+</header>
 
-<div id="game-container">
-  <iframe id="game-iframe"></iframe>
-  <a id="external-link" target="_blank">Play on external site</a>
+<div class="container">
+  <iframe id="gameFrame" allowfullscreen></iframe>
+
+  <div class="meta">
+    <h2>Description</h2>
+    <p id="gameDesc">Loading...</p>
+
+    <h2>Controls</h2>
+    <p id="gameControls">Loading...</p>
+  </div>
 </div>
 
 <script>
-  // Get URL params
-  const params = new URLSearchParams(window.location.search);
-  const gameName = params.get("title");
-  const gameType = params.get("type");
-  const gameSrc = params.get("src");
+const params = new URLSearchParams(window.location.search);
+const title = params.get("title");
+const src = params.get("src");
 
-  document.getElementById("game-title").innerText = gameName;
-  document.getElementById("game-name").innerText = gameName;
+document.title = title;
+document.getElementById("pageTitle").innerText = title;
+document.getElementById("gameTitle").innerText = title;
 
-  // Example descriptions (you can expand)
-  const descriptions = {
-    "Snake": { desc: "Classic Snake game. Eat food and grow!", controls: "Arrow keys to move" },
-    "Tetris": { desc: "Stack the blocks without gaps.", controls: "Arrow keys to move, Up to rotate" },
-  };
+const iframe = document.getElementById("gameFrame");
+iframe.src = src;
 
-  if(descriptions[gameName]) {
-    document.getElementById("game-description").innerText = descriptions[gameName].desc;
-    document.getElementById("game-controls").innerText = "Controls: " + descriptions[gameName].controls;
-  } else {
-    document.getElementById("game-description").innerText = "Enjoy the game!";
-    document.getElementById("game-controls").innerText = "";
-  }
+document.getElementById("gameDesc").innerText =
+  "Enjoy playing " + title + "! This game is fun and addictive.";
 
-  const iframe = document.getElementById("game-iframe");
-  const externalLink = document.getElementById("external-link");
+document.getElementById("gameControls").innerText =
+  "Mouse / Touch / Keyboard depending on the game.";
 
-  if(gameType === "iframe") {
-    iframe.src = gameSrc;
-    iframe.style.display = "block";
-    externalLink.style.display = "none";
-  } else {
-    externalLink.href = gameSrc;
-    externalLink.style.display = "inline-block";
-    iframe.style.display = "none";
-  }
+function openExternal() {
+  window.open(src, "_blank");
+}
 
-  // Fullscreen button
-  document.getElementById("fullscreen-btn").addEventListener("click", () => {
-    if(iframe.style.display === "block") {
-      if(iframe.requestFullscreen) iframe.requestFullscreen();
-      else if(iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
-      else if(iframe.msRequestFullscreen) iframe.msRequestFullscreen();
-    } else {
-      window.open(externalLink.href, "_blank");
-    }
-  });
+function goFullscreen() {
+  if (iframe.requestFullscreen) iframe.requestFu
 
-  // Resize iframe dynamically
-  function resizeIframe() {
-    iframe.style.height = document.getElementById("game-container").offsetWidth * 0.5625 + "px";
-  }
-  window.addEventListener("resize", resizeIframe);
-  resizeIframe();
-</script>
 
 </body>
 </html>
