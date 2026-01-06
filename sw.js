@@ -1,6 +1,6 @@
-// sw.js - minimal service worker
+// sw.js - minimal working service worker
 
-const CACHE_NAME = 'lightning-games-cache-v3';
+const CACHE_NAME = 'lightning-games-cache-v4';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -25,7 +25,7 @@ self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
-// Activate event - cleanup old caches
+// Activate event - clean up old caches
 self.addEventListener('activate', event => {
   console.log('[SW] Activating...');
   event.waitUntil(
@@ -33,7 +33,7 @@ self.addEventListener('activate', event => {
       Promise.all(
         keys.map(key => {
           if (key !== CACHE_NAME) {
-            console.log('[SW] Removing old cache:', key);
+            console.log('[SW] Deleting old cache:', key);
             return caches.delete(key);
           }
         })
@@ -43,7 +43,7 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Fetch event - serve from cache if available
+// Fetch event - serve from cache if possible
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
