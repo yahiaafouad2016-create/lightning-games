@@ -4,9 +4,6 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0a58ff">
 <link rel="apple-touch-icon" href="icon-192.png">
-<button id="installBtn" style="display:none;">
-  📲 Install App
-</button>
 
   <meta charset="UTF-8">
   <title>Lightning Games</title>
@@ -241,6 +238,10 @@ body {
   <div class="topbar">
   <div class="logo">⚡ Lightning Games</div>
   <input id="searchBar" type="text" placeholder="Search games...">
+    <button id="installBtn" style="display:none;">
+  📲 Install App
+</button>
+
 </div>
 
 <div class="layout">
@@ -625,6 +626,39 @@ installBtn.addEventListener("click", async () => {
   installBtn.style.display = "none";
 });
 </script>
+<script>
+const searchBar = document.getElementById("searchBar");
+const games = document.querySelectorAll(".game[data-category]");
+const buttons = document.querySelectorAll(".nav");
+
+function showGames(filter) {
+  const searchValue = searchBar.value.toLowerCase();
+
+  games.forEach(game => {
+    const categories = game.dataset.category;
+    const matchesFilter = filter === "all" || categories.includes(filter);
+    const matchesSearch = game.innerText.toLowerCase().includes(searchValue);
+
+    game.style.display = matchesFilter && matchesSearch ? "block" : "none";
+  });
+}
+
+buttons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    buttons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    showGames(btn.dataset.filter);
+  });
+});
+
+searchBar.addEventListener("input", () => {
+  const activeBtn = document.querySelector(".nav.active");
+  showGames(activeBtn ? activeBtn.dataset.filter : "all");
+});
+
+showGames("all");
+</script>
+
 
 </body>
 </html>
