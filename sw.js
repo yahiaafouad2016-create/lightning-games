@@ -1,6 +1,6 @@
 // sw.js - minimal working service worker
 
-const CACHE_NAME = 'lightning-games-cache-v4';
+const CACHE_NAME = 'lightning-games-cache-v5';
 const urlsToCache = [
   '/',
   '/index.html',
