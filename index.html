@@ -1,109 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0a58ff">
-<link rel="apple-touch-icon" href="icon-192.png">
-
   <meta charset="UTF-8">
   <title>Lightning Games</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <meta name="theme-color" content="#0a58ff">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="favicon.png">
 
-  <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #020024, #090979, #00d4ff);
-  color: white;
-}
-
-/* Top bar */
-.topbar {
-  height: 60px;
-  background: rgba(0,0,0,0.4);
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  gap: 20px;
-}
-
-.logo {
-  font-size: 1.4em;
-  font-weight: bold;
-}
-
-#searchBar {
-  flex: 1;
-  max-width: 400px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: none;
-}
-
-/* Layout */
-.layout {
-  display: flex;
-  height: calc(100vh - 60px);
-}
-
-/* Sidebar */
-.sidebar {
-  width: 200px;
-  background: rgba(0,0,0,0.35);
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.nav {
-  background: transparent;
-  color: white;
-  border: none;
-  text-align: left;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.nav:hover,
-.nav.active {
-  background: #1e90ff;
-}
-
-/* Content */
-.content {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-}
-
-/* Grid */
-.games-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
-}
-
-.game {
-  background: #111;
-  border-radius: 15px;
-  padding: 15px;
-  text-align: center;
-  content-visibility: auto;
-  contain-intrinsic-size: 250px;
-}
-
-.game a {
-  display: block;
-  margin-top: 10px;
-  padding: 8px;
-  background: #1e90ff;
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
-}
+  <!-- Apple support -->
+  <link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+  <h1>Welcome to Lightning Games</h1>
+  <p>Play your favorite games offline!</p>
 
 /* ===== Game Card Visual Upgrade ===== */
 
@@ -557,191 +466,49 @@ body {
     </div>
   </main>
 </div>
-<script>
-
-
-      </div>`;
-  });
-}
-
-
-const searchBar = document.getElementById("searchBar");
-const games = document.querySelectorAll(".game[data-category]");
-const buttons = document.querySelectorAll(".nav");
-const searchBar = document.getElementById("searchBar");
-
-// Function to show games by category
-function showGames(filter) {
-  const searchValue = searchBar.value.toLowerCase();
-
-  games.forEach(game => {
-    const categories = game.dataset.category;
-    const matchesFilter = filter === "all" || categories.includes(filter);
-    const matchesSearch = game.innerText.toLowerCase().includes(searchValue);
-
-    game.style.display = matchesFilter && matchesSearch ? "block" : "none";
-  });
-}
-
-// Button filtering
-buttons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    buttons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    showGames(btn.dataset.filter);
-  });
-});
-
-// Search bar filtering
-searchBar.addEventListener("input", () => {
-  const activeBtn = document.querySelector(".nav.active");
-  const activeFilter = activeBtn ? activeBtn.dataset.filter : "all";
-  showGames(activeFilter);
-});
-
-// Initially show all games
-showGames("all");
-
-</script>
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js");
-}
-</script>
-<script>
-let deferredPrompt;
-const installBtn = document.getElementById("installBtn");
-
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  installBtn.style.display = "block";
-});
-
-installBtn.addEventListener("click", async () => {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  const result = await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  installBtn.style.display = "none";
-});
-</script>
-<script>
-const searchBar = document.getElementById("searchBar");
-const games = document.querySelectorAll(".game[data-category]");
-const buttons = document.querySelectorAll(".nav");
-
-function showGames(filter) {
-  const searchValue = searchBar.value.toLowerCase();
-
-  games.forEach(game => {
-    const categories = game.dataset.category;
-    const matchesFilter = filter === "all" || categories.includes(filter);
-    const matchesSearch = game.innerText.toLowerCase().includes(searchValue);
-
-    game.style.display = matchesFilter && matchesSearch ? "block" : "none";
-  });
-}
-
-buttons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    buttons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    showGames(btn.dataset.filter);
-  });
-});
-
-searchBar.addEventListener("input", () => {
-  const activeBtn = document.querySelector(".nav.active");
-  showGames(activeBtn ? activeBtn.dataset.filter : "all");
-});
-
-showGames("all");
-</script>
-
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then(registrations => {
-    for(let reg of registrations) {
-      reg.unregister().then(() => console.log('Service worker unregistered'));
-    }
-  });
-}
-// --- Step 1: Unregister old service workers ---
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then(registrations => {
-    for (let reg of registrations) {
-      reg.unregister().then(() => console.log('Old service worker unregistered'));
-    }
-  }).catch(err => console.error('Error unregistering service workers:', err));
-}
-
-// --- Step 2: Register the new service worker (keep PWA working) ---
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('service-worker.js')
-      .then(reg => console.log('New service worker registered:', reg))
-      .catch(err => console.error('Service worker registration failed:', err));
-  });
-}
-
-</script>
-
-<!-- your current service worker registration, if any, comes AFTER -->
-<script src="main.js"></script>
-<script>
-  if ('serviceWorker' in navigator) {
-    // Remove old service workers
-    navigator.serviceWorker.getRegistrations().then(registrations => {
-      for (let reg of registrations) {
-        reg.unregister().then(() => console.log('Old service worker unregistered'));
-      }
-    });
-
-    // Register the new service worker
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js')
-        .then(reg => console.log('New service worker registered:', reg))
-        .catch(err => console.error('Service worker registration failed:', err));
-    });
-  }
-</script>
-<script>
-  if ('serviceWorker' in navigator) {
-    // Remove old service workers
-    navigator.serviceWorker.getRegistrations().then(registrations => {
-      for (let reg of registrations) {
-        reg.unregister().then(() => console.log('Old service worker unregistered'));
-      }
-    });
-
-    // Register the new service worker
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js')
-        .then(reg => console.log('New service worker registered:', reg))
-        .catch(err => console.error('Service worker registration failed:', err));
-    });
-  }
-</script>
-
   <script>
-  if ('serviceWorker' in navigator) {
-    // Remove old service workers
-    navigator.serviceWorker.getRegistrations().then(registrations => {
-      for (let reg of registrations) {
-        reg.unregister().then(() => console.log('Old SW unregistered'));
-      }
-    });
+    if ('serviceWorker' in navigator) {
+      // Remove old service workers
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        for (let reg of registrations) {
+          reg.unregister().then(() => console.log('Old SW unregistered'));
+        }
+      });
 
-    // Register the new service worker
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/lightning-games/sw.js')
-        .then(reg => console.log('New SW registered:', reg))
-        .catch(err => console.error('SW registration failed:', err));
-    });
-  }
-</script>
+      // Register the new service worker
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/lightning-games/sw.js')
+          .then(reg => console.log('New SW registered:', reg))
+          .catch(err => console.error('SW registration failed:', err));
+      });
+    }
 
+    // Handle "beforeinstallprompt" for PWA install prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const installBtn = document.createElement('button');
+      installBtn.textContent = '📲 Install App';
+      installBtn.style.position = 'fixed';
+      installBtn.style.bottom = '20px';
+      installBtn.style.right = '20px';
+      installBtn.style.padding = '10px 20px';
+      installBtn.style.background = '#0a58ff';
+      installBtn.style.color = 'white';
+      installBtn.style.border = 'none';
+      installBtn.style.borderRadius = '8px';
+      installBtn.style.cursor = 'pointer';
+      document.body.appendChild(installBtn);
+
+      installBtn.addEventListener('click', () => {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(choice => {
+          console.log('User choice:', choice.outcome);
+          installBtn.remove();
+        });
+      });
+    });
+  </script>
 </body>
 </html>
-
