@@ -13,7 +13,6 @@ self.addEventListener("fetch", () => {});
     )
   );
   self.clients.claim();
-});
 
 self.addEventListener("fetch", event => {
   event.respondWith(
