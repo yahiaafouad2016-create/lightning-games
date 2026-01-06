@@ -101,6 +101,89 @@ body {
   font-weight: bold;
 }
 
+/* ===== Game Card Visual Upgrade ===== */
+
+.game {
+  position: relative;
+  background: linear-gradient(180deg, #0b0b1a, #050510);
+  border-radius: 18px;
+  padding: 16px;
+  text-align: center;
+  transition: 
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+/* Hover lift + glow */
+.game:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 0 0 1px rgba(30,144,255,0.4),
+              0 15px 40px rgba(30,144,255,0.35);
+}
+
+/* Soft glow layer */
+.game::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at top,
+    rgba(30,144,255,0.25),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.game:hover::before {
+  opacity: 1;
+}
+
+/* Title */
+.game h2 {
+  font-size: 1.05em;
+  margin: 0;
+  color: #eaf2ff;
+}
+
+/* Play button */
+.game a {
+  display: block;
+  margin-top: 14px;
+  padding: 10px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1e90ff, #00bfff);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+/* Button hover */
+.game a:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(30,144,255,0.6);
+  filter: brightness(1.1);
+}
+
+/* Mobile optimization */
+@media (max-width: 600px) {
+  .game {
+    padding: 14px;
+  }
+
+  .game h2 {
+    font-size: 1em;
+  }
+}
+
   </style>
 </head>
 
