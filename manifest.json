@@ -1,12 +1,10 @@
 {
   "name": "Lightning Games",
   "short_name": "Lightning",
-  "description": "Play instant browser games",
-  "start_url": "index.html",
+  "start_url": ".",
   "display": "standalone",
-  "background_color": "#050510",
-  "theme_color": "#1e90ff",
-  "orientation": "portrait",
+  "background_color": "#050022",
+  "theme_color": "#0a58ff",
   "icons": [
     {
       "src": "icon-192.png",
@@ -20,4 +18,3 @@
     }
   ]
 }
-
