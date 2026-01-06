@@ -2,20 +2,61 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Lightning Games</title>
-<meta name="theme-color" content="#0a58ff">
-<link rel="manifest" href="manifest.json">
+<title>⚡️Lightning Games</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="favicon.png">
 <link rel="apple-touch-icon" href="icon-192.png">
+
 <style>
-/* ===== Game Card Visual Upgrade ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #0b0b1a, #050510);
+  color: #eaf2ff;
+}
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: #050510;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+#searchBar {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  width: 200px;
+}
+.nav {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.nav a {
+  color: #1e90ff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.nav a:hover {
+  text-decoration: underline;
+}
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
 .game {
   position: relative;
   background: linear-gradient(180deg, #0b0b1a, #050510);
   border-radius: 18px;
   padding: 16px;
   text-align: center;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
   overflow: hidden;
 }
@@ -38,7 +79,6 @@
 .game h2 {
   font-size: 1.05em;
   margin: 0;
-  color: #eaf2ff;
 }
 .game a {
   display: block;
@@ -56,87 +96,31 @@
   box-shadow: 0 8px 20px rgba(30,144,255,0.6);
   filter: brightness(1.1);
 }
+@media (max-width: 900px) {
+  .games-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 600px) {
-  .game { padding: 14px; }
-  .game h2 { font-size: 1em; }
+  .topbar { flex-direction: column; gap: 10px; }
+  #searchBar { width: 100%; font-size: 16px; }
+  .games-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
-<h1>Welcome to Lightning Games</h1>
-<p>Play your favorite games offline!</p>
+<div class="topbar">
+  <input type="text" id="searchBar" placeholder="Search games...">
+  <div class="nav">
+    <a href="#">🏠 Home</a>
+    <a href="#">🔥 Popular</a>
+    <a href="#">👥 2 Player</a>
+    <a href="#">🧠 Puzzle</a>
+    <a href="#">🚗 Arcade</a>
+  </div>
+</div>
 
-<div class="games-grid">
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Lightning Games</title>
-<meta name="theme-color" content="#0a58ff">
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="favicon.png">
-<link rel="apple-touch-icon" href="icon-192.png">
-<style>
-/* ===== Game Card Visual Upgrade ===== */
-.game {
-  position: relative;
-  background: linear-gradient(180deg, #0b0b1a, #050510);
-  border-radius: 18px;
-  padding: 16px;
-  text-align: center;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
-  overflow: hidden;
-}
-.game:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 0 0 1px rgba(30,144,255,0.4), 0 15px 40px rgba(30,144,255,0.35);
-}
-.game::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top, rgba(30,144,255,0.25), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  pointer-events: none;
-}
-.game:hover::before {
-  opacity: 1;
-}
-.game h2 {
-  font-size: 1.05em;
-  margin: 0;
-  color: #eaf2ff;
-}
-.game a {
-  display: block;
-  margin-top: 14px;
-  padding: 10px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #1e90ff, #00bfff);
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-}
-.game a:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(30,144,255,0.6);
-  filter: brightness(1.1);
-}
-@media (max-width: 600px) {
-  .game { padding: 14px; }
-  .game h2 { font-size: 1em; }
-}
-</style>
-</head>
-<body>
-
-<h1>Welcome to Lightning Games</h1>
-<p>Play your favorite games offline!</p>
-
+<h1>Lightning Games</h1>
+  
 <div class="games-grid">
   <div class="game"><h2>Snake</h2><a href="snake.html">Play Now</a></div>
   <div class="game"><h2>Tetris</h2><a href="tetris.html">Play Now</a></div>
@@ -376,10 +360,17 @@
 
 </div>
 
-</body>
-</html>
-
-</div>
+<script>
+// Simple search functionality
+const searchBar = document.getElementById('searchBar');
+searchBar.addEventListener('input', () => {
+  const filter = searchBar.value.toLowerCase();
+  document.querySelectorAll('.game').forEach(game => {
+    const text = game.querySelector('h2').textContent.toLowerCase();
+    game.style.display = text.includes(filter) ? 'block' : 'none';
+  });
+});
+</script>
 
 </body>
 </html>
