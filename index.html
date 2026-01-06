@@ -4,6 +4,9 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0a58ff">
 <link rel="apple-touch-icon" href="icon-192.png">
+<button id="installBtn" style="display:none;">
+  📲 Install App
+</button>
 
   <meta charset="UTF-8">
   <title>Lightning Games</title>
@@ -603,6 +606,24 @@ showGames("all");
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js");
 }
+</script>
+<script>
+let deferredPrompt;
+const installBtn = document.getElementById("installBtn");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = "block";
+});
+
+installBtn.addEventListener("click", async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const result = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  installBtn.style.display = "none";
+});
 </script>
 
 </body>
