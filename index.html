@@ -659,6 +659,18 @@ searchBar.addEventListener("input", () => {
 showGames("all");
 </script>
 
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then(registrations => {
+    for(let reg of registrations) {
+      reg.unregister().then(() => console.log('Service worker unregistered'));
+    }
+  });
+}
+</script>
+
+<!-- your current service worker registration, if any, comes AFTER -->
+<script src="main.js"></script>
 
 </body>
 </html>
