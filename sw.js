@@ -1,21 +1,52 @@
-const CACHE_NAME = "lightning-games-v2";
+// sw.js - minimal service worker
 
-self.addEventListener("install", e => {
+const CACHE_NAME = 'lightning-games-cache-v3';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/favicon.png',
+  '/icon-192.png',
+  '/icon-512.png',
+  '/snake.html',
+  '/tetris.html',
+  '/maze.html',
+  '/lightning-games.html',
+  '/game.html'
+];
+
+// Install event - cache files
+self.addEventListener('install', event => {
+  console.log('[SW] Installing...');
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
+      .then(() => console.log('[SW] All files cached'))
+  );
   self.skipWaiting();
 });
 
-self.addEventListener("fetch", () => {});
+// Activate event - cleanup old caches
+self.addEventListener('activate', event => {
+  console.log('[SW] Activating...');
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
-        keys.map(key => key !== CACHE_NAME && caches.delete(key))
+        keys.map(key => {
+          if (key !== CACHE_NAME) {
+            console.log('[SW] Removing old cache:', key);
+            return caches.delete(key);
+          }
+        })
       )
     )
   );
   self.clients.claim();
+});
 
-self.addEventListener("fetch", event => {
+// Fetch event - serve from cache if available
+self.addEventListener('fetch', event => {
   event.respondWith(
-    fetch(event.request).catch(() => caches.match(event.request))
+    caches.match(event.request)
+      .then(response => response || fetch(event.request))
   );
 });
