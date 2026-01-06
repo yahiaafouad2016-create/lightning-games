@@ -13,44 +13,19 @@ const urlsToCache = [
   '/lightning-games/main.js'
 ];
 
-self.addEventListener('install', event => {
-  console.log('[SW] Installing...');
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-      .then(() => console.log('[SW] Static files cached'))
-  );
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', event => {
-  console.log('[SW] Activating...');
-  event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys.map(key => {
-          if (key !== CACHE_NAME) {
-            console.log('[SW] Deleting old cache:', key);
-            return caches.delete(key);
-          }
-        })
-      )
-    )
-  );
-  self.clients.claim();
-});
-
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
       if (cachedResponse) return cachedResponse;
 
+      // Try network if not in cache
       return fetch(event.request).then(networkResponse => {
-        return caches.open(CACHE_NAME).then(cache => {
+        return caches.open('lightning-games-cache-v1').then(cache => {
           cache.put(event.request, networkResponse.clone());
           return networkResponse;
         });
       }).catch(() => {
+        // If navigation fails (offline), serve index.html
         if (event.request.mode === 'navigate') {
           return caches.match('/lightning-games/index.html');
         }
