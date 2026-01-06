@@ -1,69 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Lightning Games</title>
-  <meta name="theme-color" content="#0a58ff">
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="favicon.png">
-
-  <!-- Apple support -->
-  <link rel="apple-touch-icon" href="icon-192.png">
-</head>
-<body>
-  <h1>Welcome to Lightning Games</h1>
-  <p>Play your favorite games offline!</p>
-
+<meta charset="UTF-8">
+<title>Lightning Games</title>
+<meta name="theme-color" content="#0a58ff">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
 /* ===== Game Card Visual Upgrade ===== */
-
 .game {
   position: relative;
   background: linear-gradient(180deg, #0b0b1a, #050510);
   border-radius: 18px;
   padding: 16px;
   text-align: center;
-  transition: 
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    background 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
   overflow: hidden;
 }
-
-/* Hover lift + glow */
 .game:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 0 0 1px rgba(30,144,255,0.4),
-              0 15px 40px rgba(30,144,255,0.35);
+  box-shadow: 0 0 0 1px rgba(30,144,255,0.4), 0 15px 40px rgba(30,144,255,0.35);
 }
-
-/* Soft glow layer */
 .game::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at top,
-    rgba(30,144,255,0.25),
-    transparent 60%
-  );
+  background: radial-gradient(circle at top, rgba(30,144,255,0.25), transparent 60%);
   opacity: 0;
   transition: opacity 0.25s ease;
   pointer-events: none;
 }
-
 .game:hover::before {
   opacity: 1;
 }
-
-/* Title */
 .game h2 {
   font-size: 1.05em;
   margin: 0;
   color: #eaf2ff;
 }
-
-/* Play button */
 .game a {
   display: block;
   margin-top: 14px;
@@ -73,442 +49,191 @@
   color: white;
   text-decoration: none;
   font-weight: bold;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    filter 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
-
-/* Button hover */
 .game a:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(30,144,255,0.6);
   filter: brightness(1.1);
 }
-
-/* Mobile optimization */
 @media (max-width: 600px) {
-  .game {
-    padding: 14px;
-  }
-
-  .game h2 {
-    font-size: 1em;
-  }
+  .game { padding: 14px; }
+  .game h2 { font-size: 1em; }
 }
-
-    /* ===== Mobile UX Upgrade ===== */
-@media (max-width: 700px) {
-
-  .topbar {
-    flex-direction: column;
-    height: auto;
-    gap: 10px;
-  }
-
-  #searchBar {
-    max-width: 100%;
-    width: 100%;
-    font-size: 16px;
-  }
-
-  .layout {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    flex-direction: row;
-    width: 100%;
-    overflow-x: auto;
-    gap: 8px;
-  }
-
-  .nav {
-    white-space: nowrap;
-    font-size: 14px;
-    padding: 8px 12px;
-  }
-
-  .games-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .game a {
-    font-size: 14px;
-    padding: 10px;
-  }
-}
-
-  </style>
+</style>
 </head>
-
 <body>
 
-  <div class="topbar">
-  <div class="logo">⚡ Lightning Games</div>
-  <input id="searchBar" type="text" placeholder="Search games...">
-    <button id="installBtn" style="display:none;">
-  📲 Install App
-</button>
+<h1>Welcome to Lightning Games</h1>
+<p>Play your favorite games offline!</p>
 
+<div class="games-grid">
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lightning Games</title>
+<meta name="theme-color" content="#0a58ff">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+/* ===== Game Card Visual Upgrade ===== */
+.game {
+  position: relative;
+  background: linear-gradient(180deg, #0b0b1a, #050510);
+  border-radius: 18px;
+  padding: 16px;
+  text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+.game:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 0 0 1px rgba(30,144,255,0.4), 0 15px 40px rgba(30,144,255,0.35);
+}
+.game::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(30,144,255,0.25), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.game:hover::before {
+  opacity: 1;
+}
+.game h2 {
+  font-size: 1.05em;
+  margin: 0;
+  color: #eaf2ff;
+}
+.game a {
+  display: block;
+  margin-top: 14px;
+  padding: 10px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1e90ff, #00bfff);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+.game a:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(30,144,255,0.6);
+  filter: brightness(1.1);
+}
+@media (max-width: 600px) {
+  .game { padding: 14px; }
+  .game h2 { font-size: 1em; }
+}
+</style>
+</head>
+<body>
+
+<h1>Welcome to Lightning Games</h1>
+<p>Play your favorite games offline!</p>
+
+<div class="games-grid">
+  <div class="game"><h2>Snake</h2><a href="snake.html">Play Now</a></div>
+  <div class="game"><h2>Tetris</h2><a href="tetris.html">Play Now</a></div>
+  <div class="game"><h2>Pac-Man</h2><a href="pacman.html">Play Now</a></div>
+  <!-- Add all your other games here -->
 </div>
 
-<div class="layout">
-  <aside class="sidebar">
-    <button class="nav active" data-filter="all">🏠 Home</button>
-    <button class="nav" data-filter="popular">🔥 Popular</button>
-    <button class="nav" data-filter="multiplayer">👥 2 Player</button>
-    <button class="nav" data-filter="puzzle">🧠 Puzzle</button>
-    <button class="nav" data-filter="arcade">🚗 Arcade</button>
-  </aside>
+<script>
+if ('serviceWorker' in navigator) {
+  // Remove old SWs
+  navigator.serviceWorker.getRegistrations().then(regs => {
+    for (let reg of regs) reg.unregister();
+  });
 
-  <main class="content">
-    <div class="games-grid">
-      
-<h1> Lightning Games </h1>
+  // Register new SW
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/lightning-games/sw.js')
+      .then(reg => console.log('New SW registered:', reg))
+      .catch(err => console.error('SW registration failed:', err));
+  });
+}
 
+// PWA install prompt
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const btn = document.createElement('button');
+  btn.textContent = '📲 Install App';
+  btn.style.position = 'fixed';
+  btn.style.bottom = '20px';
+  btn.style.right = '20px';
+  btn.style.padding = '10px 20px';
+  btn.style.background = '#0a58ff';
+  btn.style.color = 'white';
+  btn.style.border = 'none';
+  btn.style.borderRadius = '8px';
+  btn.style.cursor = 'pointer';
+  document.body.appendChild(btn);
 
-<div class="game" data-category="popular"><h2>Snake</h2><a href="snake.html">Play Now</a></div>
-
-<div class="game" data-category="popular"><h2>Tetris</h2><a href="tetris.html">Play Now</a></div>
-
-<div class="game" data-category="popular"><h2>Pac-Man</h2><a href="https://pacman.live/" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="popular"><h2>Flappy Bird</h2><a href="https://flappybird.io/" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="puzzle"><h2>2048</h2><a href="https://play2048.co/" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="popular"><h2>Breakout</h2><a href="https://elgoog.im/breakout/" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="arcade"><h2>Krunker</h2><a href="https://krunker.io/" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="arcade"><h2>Shell Shockers</h2><a href="https://shellshock.io/" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="puzzle"><h2>Maze Game</h2><a href="https://www.coolmathgames.com/0-maze" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="popular"><h2>Paper.io 2</h2><a href="https://paper-io.com/" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="arcade"><h2>Diep.io</h2><a href="https://diep.io/" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="arcade"><h2>Agar.io</h2><a href="https://agar.io/" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="popular"><h2>Cookie Clicker</h2><a href="https://orteil.dashnet.org/cookieclicker/" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="arcade"><h2>HexGL (Racing)</h2><a href="https://hexgl.bkcore.com/" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="popular"><h2>Little Alchemy 2</h2><a href="https://littlealchemy2.com/" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="arcade"><h2>Super Mario (Web)</h2><a href="https://supermarioplay.com/" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="arcade"><h2>Google Dino</h2><a href="https://chromedino.com/" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="arcade"><h2>Slope</h2><a href="https://slopegame.io/" target="_blank">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Wordle</h2><a href="https://www.nytimes.com/games/wordle/index.html" target="_blank">Play Now</a></div>
-<div class="game" data-category="puzzle"><h2>Sudoku</h2><a href="https://sudoku.com/" target="_blank">Play Now</a></div>
-<div class="game" data-category="puzzle"><h2>Chess</h2><a href="https://www.chess.com/play/computer" target="_blank">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Drift Hunters</h2><a href="https://www.drifthunters.com/" target="_blank">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Madalin Cars</h2><a href="https://www.madalingames.com/madalin-cars-multiplayer/" target="_blank">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Run 3</h2><a href="https://run3.io/" target="_blank">Play Now</a></div>
-<div class="game" data-category="popular"><h2>Among Us (Web)</h2><a href="https://amongus-online.net/" target="_blank">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Crossy Road</h2><a href="https://crossyroadgame.com/" target="_blank">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Temple Run 2</h2><a href="https://poki.com/en/g/temple-run-2" target="_blank">Play Now</a></div>
-<div class="game" data-category="popular"><h2>Five Nights at Freddy's</h2><a href="https://www.fnafgame.io/" target="_blank">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Happy Wheels</h2><a href="https://totaljerkface.com/happy_wheels.tjf" target="_blank">Play Now</a></div>
-<div class="game" data-category="multiplayer"><h2>Basketball Stars 2P</h2><a href="https://www.crazygames.com/game/basketbros" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="multiplayer"><h2>Stickman Kombat 2P</h2><a href="https://www.crazygames.com/game/stickman-kombat-2d" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="multiplayer"><h2>Wrestle Bros</h2><a href="https://www.crazygames.com/game/wrestle-bros" target="_blank">Play Now</a></div>
-
-<div class="game" data-category="multiplayer"><h2>Soccer Legends</h2><a href="https://www.crazygames.com/game/soccer-legends-2021" target="_blank">Play Now</a></div>
-<div class="game" data-category="multiplayer"><h2>Tennis 2P</h2><a href="https://www.crazygames.com/game/tennis-masters" target="_blank">Play Now</a></div>
-<div class="game" data-category="multiplayer"><h2>Slither.io</h2><a href="https://slither.io/" target="_blank">Play Now</a></div>
-      <div class="game" data-category="puzzle"><h2>Find The Difference</h2><a href="https://www.crazygames.com/game/find-it---find-the-differences" target="_blank">Play Now</a></div>
-      <!-- Puzzle Games -->
-<div class="game" data-category="puzzle">
-  <h2>Bubble Shooter</h2>
-  <a href="=https://www.crazygames.com/game/bubble-shooter">Play Now</a>
-</div>
-
-<div class="game" data-category="puzzle">
-  <h2>Happy Glass</h2>
-  <a href="https://www.crazygames.com/game/happy-glass">Play Now</a>
-</div>
-
-<div class="game" data-category="puzzle">
-  <h2>Little Alchemy 1</h2>
-  <a href="https://littlealchemy.com/">Play Now</a>
-</div>
-
-<div class="game" data-category="puzzle">
-  <h2>Duck Life 3</h2>
-  <a href="https://www.crazygames.com/game/duck-life-3">Play Now</a>
-</div>
-
-<!-- Arcade Games -->
-<div class="game" data-category="arcade">
-  <h2>Subway Surfers</h2>
-  <a href="https://www.crazygames.com/game/subway-surfers">Play Now</a>
-</div>
-
-<div class="game" data-category="arcade">
-  <h2>Color Switch</h2>
-  <a href="https://www.crazygames.com/game/color-switch">Play Now</a>
-</div>
-
-<div class="game" data-category="arcade">
-  <h2>Minecraft Classic</h2>
-  <a href="https://classic.minecraft.net/">Play Now</a>
-</div>
-
-<div class="game" data-category="arcade">
-  <h2>Geometry Dash</h2>
-  <a href="https://www.crazygames.com/game/geometry-dash">Play Now</a>
-</div>
-
-<div class="game" data-category="arcade">
-  <h2>Paper Toss</h2>
-  <a href="https://www.crazygames.com/game/paper-toss">Play Now</a>
-</div>
-
-<div class="game" data-category="arcade">
-  <h2>Moto X3M</h2>
-  <a href="https://www.crazygames.com/game/moto-x3m">Play Now</a>
-</div>
-
-<div class="game" data-category="arcade">
-  <h2>Shell Shockers 2</h2>
-  <a href="https://shellshock.io/">Play Now</a>
-</div>
-
-<div class="game" data-category="arcade">
-  <h2>Vex 4</h2>
-  <a href="https://www.crazygames.com/game/vex-4">Play Now</a>
-</div>
-
-<div class="game" data-category="arcade">
-  <h2>Stickman Hook</h2>
-  <a href="https://www.crazygames.com/game/stickman-hook">Play Now</a>
-</div>
-
-<div class="game" data-category="arcade">
-  <h2>Learn to Fly 3</h2>
-  <a href="https://www.crazygames.com/game/learn-to-fly-3">Play Now</a>
-</div>
-
-<!-- Multiplayer Games -->
-<div class="game" data-category="multiplayer">
-  <h2>Tank Trouble</h2>
-  <a href="https://tanktrouble.com/">Play Now</a>
-</div>
-
-<div class="game" data-category="multiplayer">
-  <h2>Bonk.io</h2>
-  <a href="https://bonk.io/">Play Now</a>
-</div>
-
-<div class="game" data-category="multiplayer">
-  <h2>Gartic.io</h2>
-  <a href="https://gartic.io/">Play Now</a>
-</div>
-
-<div class="game" data-category="multiplayer">
-  <h2>FlyOrDie.io</h2>
-  <a href="game.html?title=FlyOrDie.io&type=external&src=https://flyordie.io/">Play Now</a>
-</div>
-
-<div class="game" data-category="multiplayer">
-  <h2>Uno Online</h2>
-  <a href="https://www.crazygames.com/game/uno">Play Now</a>
-</div>
-
-<div class="game" data-category="multiplayer">
-  <h2>Bad Ice-Cream 3</h2>
-  <a href="https://www.coolmathgames.com/0-bad-ice-cream-3">Play Now</a>
-</div>
-      <div class="game" data-category="puzzle">
-  <h2>Brain Test</h2>
-  <a href="=https://www.crazygames.com/game/brain-test">Play Now</a>
-</div>
-
-<div class="game" data-category="puzzle">
-  <h2>Flow Free</h2>
-  <a href="https://www.crazygames.com/game/flow-free">Play Now</a>
-</div>
-
-<div class="game" data-category="puzzle">
-  <h2>Cut the Rope</h2>
-  <a href="https://www.crazygames.com/game/cut-the-rope">Play Now</a>
-</div>
-
-<div class="game" data-category="puzzle">
-  <h2>Unblock Me</h2>
-  <a href="https://www.crazygames.com/game/unblock-me">Play Now</a>
-</div>
-
-<div class="game" data-category="arcade">
-  <h2>Fireboy and Watergirl 5</h2>
-  <a href="https://www.crazygames.com/game/fireboy-and-watergirl-5-elements">Play Now</a>
-</div>
-
-<div class="game" data-category="arcade">
-  <h2>Temple Run</h2>
-  <a href="https://www.crazygames.com/game/temple-run">Play Now</a>
-</div>
-
-<div class="game" data-category="arcade">
-  <h2>Stickman Warriors</h2>
-  <a href="https://www.crazygames.com/game/stickman-wars">Play Now</a>
-</div>
-
-<div class="game" data-category="arcade">
-  <h2>Vector</h2>
-  <a href="https://www.crazygames.com/game/vector">Play Now</a>
-</div>
-
-<div class="game" data-category="arcade">
-  <h2>Raft Wars</h2>
-  <a href="https://www.crazygames.com/game/raft-wars">Play Now</a>
-</div>
-<div class="game" data-category="multiplayer">
-  <h2>Krunker.io</h2>
-  <a href="https://krunker.io/">Play Now</a>
-</div>
-
-<div class="game" data-category="multiplayer">
-  <h2>Agar.io</h2>
-  <a href="https://agar.io/">Play Now</a>
-</div>
-
-<div class="game" data-category="multiplayer">
-  <h2>Slither.io</h2>
-  <a href="https://slither.io/">Play Now</a>
-</div>
-
-<div class="game" data-category="multiplayer">
-  <h2>Diep.io</h2>
-  <a href="https://diep.io/">Play Now</a>
-</div>
-
-<div class="game" data-category="multiplayer">
-  <h2>Bonk.io</h2>
-  <a href="https://bonk.io/">Play Now</a>
-</div>
-<div class="game" data-category="arcade">
-  <h2>Run 2</h2>
-  <a href="https://www.crazygames.com/game/run-2">Play Now</a>
-</div>
-
-<div class="game" data-category="arcade">
-  <h2>Slope 2</h2>
-  <a href="https://www.crazygames.com/game/slope-2">Play Now</a>
-</div>
-
-<div class="game" data-category="puzzle">
-  <h2>Find the Difference 2</h2>
-  <a href="https://www.crazygames.com/game/find-the-difference-2">Play Now</a>
-</div>
-
-<div class="game" data-category="puzzle">
-  <h2>Mahjong Classic</h2>
-  <a href="https://www.crazygames.com/game/mahjong-classic">Play Now</a>
-</div>
-
-<div class="game" data-category="arcade">
-  <h2>Tank Trouble 2</h2>
-  <a href="https://tanktrouble.com/">Play Now</a>
-</div>
-<div class="game" data-category="puzzle"><h2>Brain It On</h2><a href="https://www.crazygames.com/game/brain-it-on">Play Now</a></div>
-
-<div class="game" data-category="puzzle"><h2>Mahjong Titans</h2><a href="https://www.crazygames.com/game/mahjong-titans">Play Now</a></div>
-<div class="game" data-category="puzzle"><h2>Memory Match</h2><a href="https://www.crazygames.com/game/memory-match">Play Now</a></div>
-<div class="game" data-category="puzzle"><h2>Hexa Puzzle</h2><a href="https://www.crazygames.com/game/hexa-puzzle">Play Now</a></div>
-<div class="game" data-category="puzzle"><h2>Jigsaw Puzzle</h2><a href="https://www.crazygames.com/game/jigsaw-puzzle">Play Now</a></div>
-<div class="game" data-category="puzzle"><h2>Color Flood</h2><a href="https://www.crazygames.com/game/color-flood">Play Now</a></div>
-<div class="game" data-category="multiplayer"><h2>Gartic.io 2</h2><a href="https://gartic.io/">Play Now</a></div>
-      <div class="game" data-category="arcade"><h2>Raft Wars 2</h2><a href="https://www.crazygames.com/game/raft-wars-2">Play Now</a></div>
-  <div class="game" data-category="puzzle"><h2>Nonogram</h2><a href="https://www.nonograms.org/">Play Now</a></div>
-<div class="game" data-category="puzzle"><h2>Daily Crossword</h2><a href="https://www.boatloadpuzzles.com/playcrossword">Play Now</a></div>
-<div class="game" data-category="puzzle"><h2>Kakuro</h2><a href="https://www.kakuroconquest.com/">Play Now</a></div>
-<div class="game" data-category="puzzle"><h2>Logic Grid Puzzle</h2><a href="https://www.logicgridpuzzles.com/">Play Now</a></div>
-<div class="game" data-category="puzzle"><h2>Hashiwokakero</h2><a href="https://www.puzzle-bridges.com/">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Super Smash Flash</h2><a href="https://www.supersmashflash.com/play/">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Helix Jump</h2><a href="https://www.crazygames.com/game/helix-jump">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Rolling Sky</h2><a href="https://www.crazygames.com/game/rolling-sky">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Short Life</h2><a href="https://www.crazygames.com/game/short-life">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Short Ride</h2><a href="https://www.crazygames.com/game/short-ride">Play Now</a></div>
-<div class="game" data-category="multiplayer"><h2>WormsZone.io</h2><a href="https://wormszone.io/">Play Now</a></div>
-<div class="game" data-category="multiplayer"><h2>ZombsRoyale.io</h2><a href="https://zombsroyale.io/">Play Now</a></div>
-<div class="game" data-category="multiplayer"><h2>Skribbl.io</h2><a href="https://skribbl.io/">Play Now</a></div>
-<div class="game" data-category="multiplayer"><h2>Hole.io</h2><a href="https://holeio.com//">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Extreme Car Driving</h2><a href="https://www.crazygames.com/game/extreme-car-driving-simulator">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Burnout Drift</h2><a href="https://www.crazygames.com/game/burnout-drift">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Traffic Run</h2><a href="https://www.crazygames.com/game/traffic-run">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>City Car Driving</h2><a href="https://www.crazygames.com/game/city-car-driving">Play Now</a></div>
-<div class="game" data-category="popular"><h2>Doodle Jump</h2><a href="https://www.crazygames.com/game/doodle-jump">Play Now</a></div>
-<div class="game" data-category="popular"><h2>Fruit Ninja</h2><a href="https://www.crazygames.com/game/fruit-ninja">Play Now</a></div>
-<div class="game" data-category="popular"><h2>Jetpack Joyride</h2><a href="https://www.crazygames.com/game/jetpack-joyride">Play Now</a></div>
-<div class="game" data-category="popular"><h2>Angry Birds</h2><a href="https://www.crazygames.com/game/angry-birds">Play Now</a></div>
-<div class="game" data-category="puzzle"><h2>Word Search</h2><a href="https://thewordsearch.com/">Play Now</a></div>
-<div class="game" data-category="puzzle"><h2>Block Puzzle</h2><a href="https://www.crazygames.com/game/block-puzzle">Play Now</a></div>
-<div class="game" data-category="puzzle"><h2>Water Sort Puzzle</h2><a href="https://www.crazygames.com/game/water-sort-puzzle">Play Now</a></div>
-<div class="game" data-category="puzzle"><h2>Connect 4</h2><a href="https://papergames.io/en/connect4">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Getting Over It</h2><a href="https://www.crazygames.com/game/getting-over-it">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Rooftop Snipers</h2><a href="https://www.crazygames.com/game/rooftop-snipers">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>House of Hazards</h2><a href="https://www.crazygames.com/game/house-of-hazards">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Stick Fight</h2><a href="https://www.crazygames.com/game/stick-fight">Play Now</a></div>
-<div class="game" data-category="arcade"><h2>Super Hot</h2><a href="https://www.crazygames.com/game/superhot">Play Now</a></div>
-<div class="game" data-category="multiplayer"><h2>Smash Karts</h2><a href="https://smashkarts.io/">Play Now</a></div>
-<div class="game" data-category="multiplayer"><h2>MiniRoyale</h2><a href="https://miniroyale.io/">Play Now</a></div>
-<div class="game" data-category="multiplayer"><h2>Bullet Force</h2><a href="https://www.crazygames.com/game/bullet-force">Play Now</a></div>
-<div class="game" data-category="multiplayer"><h2>Pixel Warfare</h2><a href="https://www.crazygames.com/game/pixel-warfare">Play Now</a></div>
-
-    </div>
-  </main>
-</div>
-  <script>
-    if ('serviceWorker' in navigator) {
-      // Remove old service workers
-      navigator.serviceWorker.getRegistrations().then(registrations => {
-        for (let reg of registrations) {
-          reg.unregister().then(() => console.log('Old SW unregistered'));
-        }
-      });
-
-      // Register the new service worker
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/lightning-games/sw.js')
-          .then(reg => console.log('New SW registered:', reg))
-          .catch(err => console.error('SW registration failed:', err));
-      });
-    }
-
-    // Handle "beforeinstallprompt" for PWA install prompt
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      const installBtn = document.createElement('button');
-      installBtn.textContent = '📲 Install App';
-      installBtn.style.position = 'fixed';
-      installBtn.style.bottom = '20px';
-      installBtn.style.right = '20px';
-      installBtn.style.padding = '10px 20px';
-      installBtn.style.background = '#0a58ff';
-      installBtn.style.color = 'white';
-      installBtn.style.border = 'none';
-      installBtn.style.borderRadius = '8px';
-      installBtn.style.cursor = 'pointer';
-      document.body.appendChild(installBtn);
-
-      installBtn.addEventListener('click', () => {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(choice => {
-          console.log('User choice:', choice.outcome);
-          installBtn.remove();
-        });
-      });
+  btn.addEventListener('click', () => {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(choice => {
+      console.log('User choice:', choice.outcome);
+      btn.remove();
     });
-  </script>
+  });
+});
+</script>
+
+</body>
+</html>
+
+</div>
+
+<script>
+if ('serviceWorker' in navigator) {
+  // Remove old SWs
+  navigator.serviceWorker.getRegistrations().then(regs => {
+    for (let reg of regs) reg.unregister();
+  });
+
+  // Register new SW
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/lightning-games/sw.js')
+      .then(reg => console.log('New SW registered:', reg))
+      .catch(err => console.error('SW registration failed:', err));
+  });
+}
+
+// PWA install prompt
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const btn = document.createElement('button');
+  btn.textContent = '📲 Install App';
+  btn.style.position = 'fixed';
+  btn.style.bottom = '20px';
+  btn.style.right = '20px';
+  btn.style.padding = '10px 20px';
+  btn.style.background = '#0a58ff';
+  btn.style.color = 'white';
+  btn.style.border = 'none';
+  btn.style.borderRadius = '8px';
+  btn.style.cursor = 'pointer';
+  document.body.appendChild(btn);
+
+  btn.addEventListener('click', () => {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(choice => {
+      console.log('User choice:', choice.outcome);
+      btn.remove();
+    });
+  });
+});
+</script>
+
 </body>
 </html>
