@@ -11,8 +11,11 @@ const urlsToCache = [
   '/tetris.html',
   '/maze.html',
   '/lightning-games.html',
-  '/game.html'
+  '/game.html',
+  '/style.css',    // add your CSS file if you have one
+  '/some.js'       // add any JS file you need offline
 ];
+
 
 // Install event - cache files
 self.addEventListener('install', event => {
