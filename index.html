@@ -689,6 +689,23 @@ if ('serviceWorker' in navigator) {
 
 <!-- your current service worker registration, if any, comes AFTER -->
 <script src="main.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    // Remove old service workers
+    navigator.serviceWorker.getRegistrations().then(registrations => {
+      for (let reg of registrations) {
+        reg.unregister().then(() => console.log('Old service worker unregistered'));
+      }
+    });
+
+    // Register the new service worker
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('New service worker registered:', reg))
+        .catch(err => console.error('Service worker registration failed:', err));
+    });
+  }
+</script>
 
 </body>
 </html>
