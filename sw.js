@@ -1,6 +1,4 @@
-// sw.js - full working service worker for GitHub Pages
-
-const CACHE_NAME = 'lightning-games-cache-v8';
+const CACHE_NAME = 'lightning-games-cache-v9';
 const urlsToCache = [
   '/lightning-games/',
   '/lightning-games/index.html',
@@ -12,10 +10,8 @@ const urlsToCache = [
   '/lightning-games/maze.html',
   '/lightning-games/lightning-games.html',
   '/lightning-games/game.html'
-  // Add any CSS/JS files here if needed, e.g., '/lightning-games/style.css'
 ];
 
-// Install - cache static files
 self.addEventListener('install', event => {
   console.log('[SW] Installing...');
   event.waitUntil(
@@ -26,7 +22,6 @@ self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
-// Activate - remove old caches
 self.addEventListener('activate', event => {
   console.log('[SW] Activating...');
   event.waitUntil(
@@ -34,5 +29,32 @@ self.addEventListener('activate', event => {
       Promise.all(
         keys.map(key => {
           if (key !== CACHE_NAME) {
-            console.log('[SW] Deleting old cache:',
+            console.log('[SW] Deleting old cache:', key);
+            return caches.delete(key);
+          }
+        })
+      )
+    )
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request).then(cachedResponse => {
+      if (cachedResponse) return cachedResponse;
+
+      return fetch(event.request).then(networkResponse => {
+        return caches.open(CACHE_NAME).then(cache => {
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        });
+      }).catch(() => {
+        if (event.request.mode === 'navigate') {
+          return caches.match('/lightning-games/index.html');
+        }
+      });
+    })
+  );
+});
 
