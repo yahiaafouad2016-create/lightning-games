@@ -1,6 +1,6 @@
-// sw.js - minimal working service worker
+// sw.js - full working service worker with dynamic caching
 
-const CACHE_NAME = 'lightning-games-cache-v5';
+const CACHE_NAME = 'lightning-games-cache-v6';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -11,24 +11,22 @@ const urlsToCache = [
   '/tetris.html',
   '/maze.html',
   '/lightning-games.html',
-  '/game.html',
-  '/style.css',    // add your CSS file if you have one
-  '/some.js'       // add any JS file you need offline
+  '/game.html'
+  // add more static files if you have them, e.g., '/style.css', '/app.js'
 ];
 
-
-// Install event - cache files
+// Install event - cache static files
 self.addEventListener('install', event => {
   console.log('[SW] Installing...');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(urlsToCache))
-      .then(() => console.log('[SW] All files cached'))
+      .then(() => console.log('[SW] Static files cached'))
   );
   self.skipWaiting();
 });
 
-// Activate event - clean up old caches
+// Activate event - remove old caches
 self.addEventListener('activate', event => {
   console.log('[SW] Activating...');
   event.waitUntil(
@@ -46,10 +44,27 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Fetch event - serve from cache if possible
+// Fetch event - serve from cache or fetch and cache dynamically
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
+    caches.match(event.request).then(cachedResponse => {
+      if (cachedResponse) {
+        return cachedResponse; // return cached version if available
+      }
+
+      return fetch(event.request).then(networkResponse => {
+        // Cache the new response dynamically
+        return caches.open(CACHE_NAME).then(cache => {
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        });
+      }).catch(() => {
+        // fallback if offline and resource not cached
+        if (event.request.mode === 'navigate') {
+          return caches.match('/index.html');
+        }
+      });
+    })
   );
 });
+
