@@ -1,10 +1,10 @@
 const CACHE_NAME = "lightning-games-v2";
 
-self.addEventListener("install", event => {
+self.addEventListener("install", e => {
   self.skipWaiting();
 });
 
-self.addEventListener("activate", event => {
+self.addEventListener("fetch", () => {});
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
