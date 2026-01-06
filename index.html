@@ -194,22 +194,20 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
 <script>
 if ('serviceWorker' in navigator) {
-  // Remove old SWs
   navigator.serviceWorker.getRegistrations().then(regs => {
     for (let reg of regs) reg.unregister();
   });
 
-  // Register new SW
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/lightning-games/sw.js')
-      .then(reg => console.log('New SW registered:', reg))
+      .then(reg => console.log('SW registered'))
       .catch(err => console.error('SW registration failed:', err));
   });
 }
 
-// PWA install prompt
+// Install button for PWA
 let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
+window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   deferredPrompt = e;
   const btn = document.createElement('button');
@@ -227,13 +225,11 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
   btn.addEventListener('click', () => {
     deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(choice => {
-      console.log('User choice:', choice.outcome);
-      btn.remove();
-    });
+    deferredPrompt.userChoice.then(() => btn.remove());
   });
 });
 </script>
+
 
 </body>
 </html>
