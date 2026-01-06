@@ -8,9 +8,9 @@ const urlsToCache = [
   '/lightning-games/snake.html',
   '/lightning-games/tetris.html',
   '/lightning-games/maze.html',
+  '/lightning-games/game.html',
   '/lightning-games/lightning-games.html',
-  '/lightning-games/game.html'
-  // remove any missing files like pacman.html
+  '/lightning-games/main.js'
 ];
 
 self.addEventListener('install', event => {
