@@ -667,6 +667,24 @@ if ('serviceWorker' in navigator) {
     }
   });
 }
+// --- Step 1: Unregister old service workers ---
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then(registrations => {
+    for (let reg of registrations) {
+      reg.unregister().then(() => console.log('Old service worker unregistered'));
+    }
+  }).catch(err => console.error('Error unregistering service workers:', err));
+}
+
+// --- Step 2: Register the new service worker (keep PWA working) ---
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(reg => console.log('New service worker registered:', reg))
+      .catch(err => console.error('Service worker registration failed:', err));
+  });
+}
+
 </script>
 
 <!-- your current service worker registration, if any, comes AFTER -->
