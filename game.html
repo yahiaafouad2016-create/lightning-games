@@ -2,98 +2,111 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title id="pageTitle">Game</title>
+<title>Game</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #0b0f1a;
-  color: #fff;
+  background: #050510;
+  color: white;
 }
-header {
+
+.header {
   padding: 15px;
-  background: #11162a;
+  background: rgba(0,0,0,0.6);
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-button {
+
+.header h1 {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+.actions button,
+.actions a {
   background: #1e90ff;
+  color: white;
   border: none;
-  padding: 10px 15px;
-  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
   cursor: pointer;
-  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 6px;
 }
-button:hover { opacity: 0.9; }
-.container {
-  padding: 15px;
+
+.game-container {
+  width: 100%;
+  height: calc(100vh - 60px);
 }
+
 iframe {
   width: 100%;
-  height: 70vh;
+  height: 100%;
   border: none;
-  background: #000;
 }
-.meta {
-  margin-top: 15px;
-  background: #11162a;
-  padding: 15px;
-  border-radius: 10px;
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1 id="gameTitle">Game</h1>
-  <div>
-    <button onclick="goFullscreen()">Fullscreen</button>
-    <button onclick="openExternal()">Open External</button>
-  </div>
-</header>
-
-<div class="container">
-  <iframe id="gameFrame" allowfullscreen></iframe>
-
-  <div class="meta">
-    <h2>Description</h2>
-    <p id="gameDesc">Loading...</p>
-
-    <h2>Controls</h2>
-    <p id="gameControls">Loading...</p>
+<div class="header">
+  <h1 id="title">Game</h1>
+  <div class="actions">
+    <button id="fullscreenBtn" onclick="goFullscreen()">⛶ Fullscreen</button>
+    <a id="externalBtn" target="_blank">🌐 Open External</a>
   </div>
 </div>
 
-<script>
-const params = new URLSearchParams(window.location.search);
-const title = params.get("title");
-const src = params.get("link");
+<div class="game-container">
+  <iframe id="gameFrame"></iframe>
+</div>
 
-document.title = title;
-document.getElementById("pageTitle").innerText = title;
-document.getElementById("gameTitle").innerText = title;
+<script>
+const params = new URLSearchParams(location.search);
+const title = params.get("title") || "Game";
+const link = params.get("link");
+
+document.getElementById("title").innerText = title;
 
 const iframe = document.getElementById("gameFrame");
-iframe.src = src;
+const externalBtn = document.getElementById("externalBtn");
+const fullscreenBtn = document.getElementById("fullscreenBtn");
 
-document.getElementById("gameDesc").innerText =
-  "Enjoy playing " + title + "! This game is fun and addictive.";
+if (!link) {
+  document.body.innerHTML = "<h2 style='padding:20px'>No game link</h2>";
+}
 
-document.getElementById("gameControls").innerText =
-  "Mouse / Touch / Keyboard depending on the game.";
-
-function openExternal() {
-  window.open(src, "_blank");
+// External site → open button only
+if (link.startsWith("http")) {
+  iframe.style.display = "none";
+  fullscreenBtn.style.display = "none";
+  externalBtn.href = link;
+} 
+// Local game → iframe
+else {
+  iframe.src = link;
+  externalBtn.style.display = "none";
 }
 
 function goFullscreen() {
-  if (iframe.requestFullscreen) iframe.requestFu
-
+  if (iframe.requestFullscreen) iframe.requestFullscreen();
+}
+</script>
 
 </body>
 </html>
+
 
